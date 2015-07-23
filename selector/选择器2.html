@@ -53,7 +53,6 @@ function _getByStr(aParent, str)
 				break;
 			default: 
 				//li	li.box	li[type=xxx]	li:has()	li#li1
-				
 				//li.box
 				
 				if(/\w+\.\w+/.test(str))// \w+  a-z0-9_     \.  以为.在正则里面代表所有  所以的转义 
@@ -203,7 +202,6 @@ function getEle(str)
 		为了得到 第二次 循环的 父级 所以 这里 aP = aC 
 		开始第二次。。。
 	*/
-	alert(arr.length)
 	for(var i=0;i<arr.length;i++)
 	{
 		aChild=_getByStr(aParent, arr[i]); // 将arr[i] 里面所有的元素去匹配 函数_getByStr()   有符合_getByStr的就等于aChild		   _getByStr(aParent, str)
