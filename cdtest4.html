@@ -1,0 +1,73 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+<style>
+*{ margin:0; padding:0; }
+.div1{ width:100px; height:100px; background:#069; position:absolute; left:50px; top:100px; }
+.t{ width:100px; height:100px; background:#930; position:absolute;  left:350px; top:100px; }
+</style>
+</head>
+
+<body>
+<div class="div1"></div>
+<div class="t"></div>
+<script>
+window.onload=function(){
+	var oDiv1=document.querySelectorAll('.div1')[0];
+	var oT=document.querySelectorAll('.t')[0];
+	oDiv1.onmousedown=function(ev){
+		
+		
+		var ev=ev||event;
+		var disx=ev.clientX-oDiv1.offsetLeft;
+		var disy=ev.clientY-oDiv1.offsetTop;
+		
+		
+		document.onmousemove=function(ev){
+				var ev=ev||event;	
+				oDiv1.style.left=ev.clientX-disx+'px';
+				oDiv1.style.top=ev.clientY-disy+'px';
+				var cLStart=oDiv1.offsetLeft+oDiv1.offsetWidth;
+				var cL=oT.offsetLeft-oDiv1.offsetLeft-oDiv1.offsetWidth;
+				var cLOld=oDiv1.offsetLeft+oDiv1.offsetWidth;
+				
+				var Nowdis=cLOld-cLStart;
+				if(collide(oDiv1,oT)){
+					
+					oT.style.left=cLOld+Nowdis+100+'px';	
+					
+				}
+				
+				
+				console.log(oT.offsetLeft+'-'+Nowdis)
+		};
+		document.onmouseup=function(){
+			document.onmousemove=document.onmouseup=null;
+		};
+	};
+	
+	
+	
+	function collide(obj1,obj2){
+		var l1=obj1.offsetLeft;
+		var t1=obj1.offsetTop;
+		var r1=obj1.offsetLeft+obj1.offsetWidth;
+		var b1=obj1.offsetTop+obj1.offsetHeight;
+		
+		var l2=obj2.offsetLeft;
+		var t2=obj2.offsetTop;
+		var r2=obj2.offsetLeft+obj2.offsetWidth;
+		var b2=obj2.offsetTop+obj2.offsetHeight;
+		
+		if(l1>r2 || r1<l2 || t1>b2 || b1<t2){
+			return false;	
+		}else{
+			return true;	
+		}
+	}
+};
+</script>
+</body>
+</html>
