@@ -1,0 +1,59 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>碰撞检测</title>
+<style>
+*{ margin:0; padding:0; }
+.div1{ width:100px; border-radius:50%; height:100px; background:red; position:absolute; left:100px; top:100px; }
+.div2{ width:100px; border-radius:50%; height:100px; background:green; position:absolute; left:400px; top:400px; }
+</style>
+</head>
+
+<body>
+
+<div class="div1"></div>
+<div class="div2"></div>
+<script>
+var oDiv1=document.querySelectorAll('.div1')[0];
+var oDiv2=document.querySelectorAll('.div2')[0];
+
+oDiv1.onmousedown=function(ev){
+	var ev=ev||event;
+	var disx=ev.clientX-oDiv1.offsetLeft;
+	var disy=ev.clientY-oDiv1.offsetTop;
+	
+	document.onmousemove=function(ev){
+		var ev=ev||event;	
+		oDiv1.style.left=ev.clientX-disx+'px';
+		oDiv1.style.top=ev.clientY-disy+'px';
+		
+		if(collide(oDiv1,oDiv2)){
+			oDiv2.style.background='#ccc';	
+		}
+	};
+	document.onmouseup=function(){
+		document.onmousemove=document.onmouseup=null;
+	};
+};
+
+function collide(obj1,obj2){
+	
+	var comWidth=obj1.offsetWidth/2+obj2.offsetWidth/2; 
+	// 斜边长度  
+	var l=(obj2.offsetLeft+obj2.offsetWidth/2)-(obj1.offsetLeft+obj1.offsetWidth/2); // 直角边
+	
+	var t=(obj2.offsetTop+obj2.offsetHeight/2)-(obj1.offsetTop+obj1.offsetHeight/2);
+	
+	var k=Math.floor(Math.sqrt(Math.pow(l,2)+Math.pow(t,2))); //斜边
+	console.log(k)
+	if(k<comWidth){
+		return true;	
+	}else{
+		return false;	
+	}
+}
+
+</script>
+</body>
+</html>
