@@ -1,0 +1,29 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+</head>
+
+<body>
+<script>
+
+//去重
+var arr=[11,1,34,56,23,45,23,45,563,123,32,34,5,43,54,23,12,43,45];
+var res = [];
+var json = {};
+for(var i = 0; i < arr.length; i++){
+	if(!json[arr[i]]){
+	   res.push(arr[i]);
+	   json[arr[i]] = 1;
+	  }
+}
+
+alert(res)
+
+
+
+
+</script>
+</body>
+</html>

@@ -17,7 +17,7 @@ body{ overflow:hidden; background:#000; }
 
 .top{ width:200px; height:30px; border-radius:3px; border:1px solid #ddd; background-color:rgba(225,225,225,0.5);  margin:20px auto;}
 </style>
-<script src="comjs.js"></script>
+<script src="../comjs.js"></script>
 </head>
 
 <body>
@@ -41,20 +41,28 @@ var oStart=document.querySelectorAll('.start')[0];
 var Start=document.querySelectorAll('.Start')[0];
 var Stop=document.querySelectorAll('.Stop')[0];
 var Clear=document.querySelectorAll('.Clear')[0];
-
+var oD=document.querySelectorAll('.d')[0];
 var tip=document.querySelectorAll('.tip')[0];
 var bKg=false;
-
+var Arrdiv=[];
+var oW=[];
 document.onclick=function(ev){
+	
 	if(oStart.style.display=='block'){
 		oStart.style.display='none';
 	}
-	var aDiv=document.querySelectorAll('div');
-	if(aDiv.length<=200){
-		var ev=ev||event;	
-		createDiv(ev);
-		tip.innerHTML=aDiv.length;
-	}else{alert('不能再多了');}
+	
+	var ev=ev||event;	
+	createDiv(ev);
+	
+	var aDiv=document.querySelectorAll('.moveDiv');
+	//alert(aDiv.length)
+	
+	if(aDiv.length>=200){
+		alert('不能再多了');
+	}
+	
+	tip.innerHTML=aDiv.length+'-';
 };
 
 
@@ -68,25 +76,35 @@ document.oncontextmenu=function(ev){
 }
 
 
-Start.onclick=function(){
+Start.onclick=function(ev){
 	bKg=true;
+	var ev=ev||event;
+	ev.cancelBubble=true;
+	oStart.style.display='none';
 }
-Stop.onclick=function(){
+Stop.onclick=function(ev){
 	bKg=false;
-	var oD=document.querySelectorAll('.d')[0];
 	oD.style.display='none';
+	oStart.style.display='none';
+	var ev=ev||event;
+	ev.cancelBubble=true;
 }
-Clear.onclick=function(){
+Clear.onclick=function(ev){
 	var oMoveDiv=document.querySelectorAll('.moveDiv');
 	for(var i=0; i<oMoveDiv.length; i++){
 		document.body.removeChild(oMoveDiv[i]);
 	}
+	oStart.style.display='none';
+	var ev=ev||event;
+	ev.cancelBubble=true;
 }
-var Arrdiv=[];
+
+
+
 document.onmousemove=function(ev){
 	
 	if(bKg){
-		var oD=document.querySelectorAll('.d')[0];
+	
 		oD.style.display='block';
 		var oMoveDiv=document.querySelectorAll('.moveDiv');
 		var ev=ev||event;
@@ -103,28 +121,85 @@ document.onmousemove=function(ev){
 		},20);
 		
 		for(var i=0; i<oMoveDiv.length; i++){
-			
-			if(collide(oD,oMoveDiv[i])){
-			//	alert(1234)
-				Arrdiv.push(oMoveDiv[i]);
-				oMoveDiv[i].style.opacity=0;
-				document.body.removeChild(oMoveDiv[i]);
-				
-				tip.innerHTML=oMoveDiv.length;
-				s();	
-			}
+			(function(i){
+				if(collide(oD,oMoveDiv[i])){
+					//alert(1234)
+					Arrdiv.push(oMoveDiv[i]);
+					oMoveDiv[i].style.opacity=0;
+					console.log(oMoveDiv[i].offsetLeft+'~'+Arrdiv.length)
+					//alert(oMoveDiv.length)
+					document.body.removeChild(oMoveDiv[i]);
+					tip.innerHTML=oMoveDiv.length;
+					
+					dataArr();
+				}else{
+					//console.log(i)	
+				}
+			})(i)
 		};
+	}
+	//console.log(typeof Arrdiv);
+	//s();
+	var str,num;
+	function dataArr(){
+		for(var j=0; j<Arrdiv.length; j++){
+			
+			str=Arrdiv[j].getAttribute('style').split('width')[1];
+			num=str.substring(1,str.indexOf('px')); // 找宽度
+			oW.push(parseInt(num));
+			var newoW=Bsort(removal(oW));  // 去重 排序
+			
+			
+			
+		}
 		
+		console.log(newoW);
 	}
 	
-	function s(){
-		for(var i=0; i<Arrdiv.length; i++){
-			oD.appendChild(Arrdiv[i]);
-			Arrdiv[i].style.opacity=1;
-		}
-	}
 };
 
+
+// 排序
+
+function Bsort(arr){
+	
+	var tmp,len=arr.length;
+	
+	for(var i=0; i<len-1; i++){
+		for(var j=0; j<len-1-i; j++){
+			if(arr[j]<arr[j+1]){
+				tmp=arr[j];
+				arr[j]=arr[j+1];	
+				arr[j+1]=tmp; //交换位置
+			}
+		}
+	}
+	return arr;
+}
+
+// 去重 
+
+
+function removal(arr){
+	var n=[];
+	
+	for(var i=0; i<arr.length; i++){
+		if(n.indexOf(arr[i]) == -1){ // 如果在准备的数组里面没有找到 那么就添加进去
+			n.push(arr[i]);
+		}	
+	};
+	return n;
+		
+}
+
+function getStyle(obj,attr){
+	if(obj.currentStyle){
+		obj.currentStyle[attr];
+	}else{
+		getComputedStyle(obj,false)[attr];	
+	}
+	
+}
 
 function createDiv(ev){
 	var oDiv=document.createElement('div');	
@@ -211,15 +286,17 @@ function roundMove(obj){
 function collide(obj1,obj2){
 	
 	var comWidth=obj1.offsetWidth/2+obj2.offsetWidth/2; 
+	//console.log(comWidth+'-'+obj1.offsetWidth/2+'-'+obj2.offsetWidth/2)
 	// 斜边长度  
 	var l=(obj2.offsetLeft+obj2.offsetWidth/2)-(obj1.offsetLeft+obj1.offsetWidth/2); // 直角边
 	
 	var t=(obj2.offsetTop+obj2.offsetHeight/2)-(obj1.offsetTop+obj1.offsetHeight/2);
 	
 	var k=Math.floor(Math.sqrt(Math.pow(l,2)+Math.pow(t,2))); //斜边
-	//console.log(k)
+	
 	if(k<comWidth){
 		return true;	
+		//console.log(k)
 	}else{
 		return false;	
 	}

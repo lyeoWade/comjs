@@ -1,0 +1,116 @@
+/*
+
+	1em = 80px;
+	
+	0.1rem=8px;
+	0.5rem=40px;
+	0.15rem=12px;
+	0.125rem=10px;
+	
+*/
+body,
+ul,
+ol,
+li,
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+form,
+fieldset,
+table,
+td,
+img,
+div,
+dl,
+dt,
+dd,
+input {
+  margin: 0;
+  padding: 0;
+}
+body {
+  font-size: 0.15rem;
+}
+img {
+  border: none;
+}
+ul,
+ol {
+  list-style: none;
+}
+input,
+select,
+textarea {
+  outline: none;
+  border: none;
+  background: #FFF;
+}
+textarea {
+  resize: none;
+}
+a {
+  text-decoration: none;
+  color: #F90;
+}
+/*清浮动*/
+.clearfix:after {
+  content: "";
+  display: block;
+  clear: both;
+}
+.clearfix {
+  zoom: 1;
+}
+.fl {
+  float: left;
+}
+.fr {
+  float: right;
+}
+header {
+  height: 0.5rem;
+  width: 100%;
+  background: #3c3c3c;
+  position: fixed;
+}
+header .logo {
+  display: inline-block;
+  width: 0.5rem;
+  height: 0.5rem;
+  float: left;
+}
+header .search {
+  float: left;
+  position: relative;
+}
+header .search .s_box {
+  width: 210px;
+  height: 30px;
+  padding-left: 8px;
+  margin-top: 0.05rem;
+  color: #fff;
+  background: #111;
+  border-radius: 5px;
+}
+header .search .btn {
+  border-radius: 0 5px 5px 0px;
+  position: absolute;
+  right: 0;
+  top: 4px;
+  background: #333333;
+  color: #fff;
+  width: 0.375rem;
+  height: 0.375rem;
+  text-align: center;
+  line-height: 0.375rem;
+}
+header .nav-bar {
+  float: right;
+  width: 0.5rem;
+  height: 0.5rem;
+  background: #999;
+}
