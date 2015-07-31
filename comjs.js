@@ -35,7 +35,6 @@ function getByClass(oParent, sClass)
 	{
 		return oParent.getElementsByClassName(sClass);
 	};
-	
 	var aEle=oParent.getElementsByTagName('*');
 	var re=new RegExp('\\b'+sClass+'\\b');
 	var result=[];

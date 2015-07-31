@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<script type="text/javascript" src="drag_m.js"></script>
+<script type="text/javascript">
+window.onload=function(){
+	var oDiv=document.getElementById('div1');
+	var arr=[];
+	var timer=null;
+
+	drag(oDiv,arr);
+	
+	var oBtn1=document.getElementById('btn1');
+	
+	oBtn1.onclick=function(){
+		timer=setInterval(function(){
+			
+			if(arr.length==0){
+				clearInterval(timer);
+			}else{
+				oDiv.style.left=arr.pop().left+'px';//上下pop()函数执行了两次！！！
+				oDiv.style.top=arr.pop().top +'px';
+			}
+
+		},30);
+	};
+};
+</script>
+</head>
+
+<body>
+<input type="button" value="回放" id="btn1">
+<p>322222222222222222222222</p>
+<p>322222222222222222222222</p>
+<p>322222222222222222222222</p>
+<p>322222222222222222222222</p>
+<p>322222222222222222222222</p>
+<p>效果说明：拖div使劲拖，然后再点回放；</p>
+<div style="width:200px;height:200px;background:red; position:absolute;" id="div1"</div>
+</body>
+</html>

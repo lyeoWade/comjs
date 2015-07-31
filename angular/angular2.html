@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" ng-app>
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+
+	<script type="text/javascript" src="angular.min.js"></script>
+	<script type="text/javascript">
+	function hello($scope){
+		$scope.name="hello angular"; // M
+	}
+	</script>
+</head>
+<body ng-controller="hello"><!-- C -->
+	<div>{{name}}</div> <!-- V -->
+</body>
+</html>

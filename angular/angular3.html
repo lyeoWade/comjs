@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" ng-app>
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+
+	<script type="text/javascript" src="angular.min.js"></script>
+	<script type="text/javascript">
+	function hello($scope,$rootScope){ //hello 就是全局的函数
+		$scope.name="hello angular"; // M
+		$scope.age=40;
+		$rootScope.age='50'
+	}
+	function h($scope){
+		$scope.name='bitck';
+		//$scope.age=50;
+	}
+	// $rootScope  --- 表示全局
+	</script>
+</head>
+<body ><!-- C -->
+	<div ng-controller="hello">{{name}}</div> <!-- V -->
+	<div ng-controller="h">{{name}}<div>{{age}}</div></div>	
+</body>
+</html>
