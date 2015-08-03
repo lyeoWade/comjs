@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style type="text/css">
+		*{ margin: 0; padding: 0; }
+		ul{ list-style: none; width: 1280px; margin: 0 auto; }
+		ul li{ width: 260px; height: 180px; float: left; margin: 20px; border-radius: 5px; border:1px solid #ccc; }
+		
+	</style>
+	<script type="text/javascript" src="jquery.js"></script>
+	<script type="text/javascript">
+	$(function(){
+		var obj=$("a");
+		
+		createrNormalLayer(obj)
+	
+	});
+	
+	function createrNormalLayer(obj){
+		
+		var $oHead=$('head');
+		
+		var oLink=document.createElement('Link');
+		oLink.rel="stylesheet";
+		oLink.type="text/css";
+		oLink.href="css/c.css";
+		$oHead.append($(oLink))
+		var $oBtn=obj;
+		
+		$oBtn.each(function(index, element) {
+			$oBtn.eq(index).on('click',function(){
+				
+				var $oParent=$(this).parents('.leyer_x_s');
+				$oParent.css('position','relative');
+				var $oTel=$oParent.attr('tel')
+				var oChild=document.createElement('div');
+				oChild.className='order_x_s';
+				oChild.innerHTML+='<i></i>';
+				oChild.innerHTML+='<p class="order_x_s_tel">预定电话:<span>'+$oTel+'</span></p>';
+				$oParent.append(oChild);
+				
+				var $oClose=$(oChild).find('i');
+				
+				$oClose.on('click',function(){
+					$(oChild).remove();
+				});
+				
+			})	
+		});
+			
+	}
+	
+	</script>
+</head>
+<body>
+	<ul id="ul">
+		<li class="leyer_x_s" tel="12454578"><a href="javascript:;">预定</a></li>
+		<li class="leyer_x_s" tel="12454578"><a href="javascript:;">预定</a></li>
+		<li class="leyer_x_s" tel="12454578"><a href="javascript:;">预定</a></li>
+		<li class="leyer_x_s" tel="12454578"><a href="javascript:;">预定</a></li>
+		<li class="leyer_x_s" tel="12454578"><a href="javascript:;">预定</a></li>
+	</ul>
+</body>
+</html>
