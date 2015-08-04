@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style type="text/css">
+	.box{ width: 200px; height: 200px; background: #f00;  }
+	</style>
+</head>
+<body>
+	<div class="box">a</div>
+	<script type="text/javascript">
+	window.onload=function(){
+		var oBox=document.querySelectorAll('.box')[0];
+		alert( getStyle(oBox,'width'))
+	}
+	function getStyle(obj,attr){
+		return obj.currentStyle?obj.currentStyle[attr]:getComputedStyle(obj,false)[attr];
+	}
+
+	
+
+	</script>
+</body>
+</html>

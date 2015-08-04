@@ -10,5 +10,9 @@ http.createServer(function (request , response){
 
 	response.write('请求成功');
 	response.end();
+
+	
 }).listen(8089);
+
+
 
